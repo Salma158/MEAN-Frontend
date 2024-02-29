@@ -9,19 +9,20 @@ export class BooksService {
 
   constructor(private http : HttpClient) {}
 
+  searchBook(searchBook : string): Observable<any>{
+    let queryParams = new HttpParams().set('searchedBook', searchBook)
+    return this.http.get("http://localhost:3000/books/searchBook", { params: queryParams })
+  }
+
   getPopularBooks(): Observable<any>{
     return this.http.get("http://localhost:3000/books/popularBooks");
   }
 
-  getUserBooks(user : string): Observable<any>{
-    let queryParams = new HttpParams().set('user', user)
+  getBooksByStatus(user: string, status: string, page : number, limit : number): Observable<any> {
+    let queryParams = new HttpParams().set('user', user).set('status', status).set('limit', limit).set('page', page)
     return this.http.get("http://localhost:3000/userbooks", { params: queryParams })
   }
-
-  getBooksByStatus(user: string, status: string, page: number, limit: number): Observable<any> {
-    let queryParams = new HttpParams().set('user', user).set('status', status).set('page', page).set('limit' , limit)
-    return this.http.get("http://localhost:3000/userbooks", { params: queryParams })
-  }
+  
   getBookById(id: string): Observable<any> {
     return this.http.get(`http://localhost:3000/books/${id}`);
   }
@@ -38,5 +39,12 @@ export class BooksService {
   }
   addUserBook(user : string, book: string , status: string ){
     return this.http.post(`http://localhost:3000/userbooks`, {user, book, status})
+  }
+
+  getPopularAuthors(): Observable<any>{
+    return this.http.get("http://localhost:3000/authors/popular")
+  }
+  getPopularCategories(): Observable<any>{
+    return this.http.get("http://localhost:3000/categories/popular")
   }
 }

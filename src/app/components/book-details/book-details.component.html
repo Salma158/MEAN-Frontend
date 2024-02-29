@@ -2,64 +2,110 @@
   <div class="row align-items-stretch">
     <div class="col-md-4">
       <div class="book-info d-flex flex-column h-100">
-        <img src="./../../../assets/titanic.jpg" alt="Book Title" class="img-fluid" />
-        <select [(ngModel)]="selectedOption" (ngModelChange)="onSelectChange($event)" class="form-control">
-          <option [value]="'already read'" [selected]="selectedOption === 'already read'">Already Read</option>
-          <option [value]="'currently reading'" [selected]="selectedOption === 'currently reading'">Currently Reading</option>
-          <option [value]="'wish to read'" [selected]="selectedOption === 'wish to read'">Wish to Read</option>
+        <img
+          src="./../../../assets/titanic.jpg"
+          alt="Book Title"
+          class="img-fluid"
+        />
+
+        @if(userBookData?.status){
+        <p>
+          <strong>Status: </strong> <span>{{ selectedOption }}</span>
+        </p>
+
+        }
+
+        <strong>edit status :</strong>
+        <select
+          [(ngModel)]="selectedOption"
+          (ngModelChange)="onSelectChange($event)"
+          class="form-control"
+        >
+          <option
+            [value]="'already read'"
+            [selected]="selectedOption === 'already read'"
+          >
+            Already Read
+          </option>
+          <option
+            [value]="'currently reading'"
+            [selected]="selectedOption === 'currently reading'"
+          >
+            Currently Reading
+          </option>
+          <option
+            [value]="'wish to read'"
+            [selected]="selectedOption === 'wish to read'"
+          >
+            Wish to Read
+          </option>
         </select>
-        <button (click)="removeUserBook()" class="btn btn-danger mt-auto">Remove from My Shelf</button>
+
+        <strong>rate the book :</strong>
+
+        <div class="star-container">
+          @for(star of rates; track $index){
+            <div >
+              <fa-icon [icon]="faStar" (click)="rate($index + 1)" class="star-rating" [ngClass]="{'rated': $index < selectedRating}"></fa-icon>
+            </div>
+          }
+        </div>
+
+        <button (click)="removeUserBook()" class="btn btn-danger mt-auto">
+          Remove from My Shelf
+        </button>
       </div>
     </div>
 
     <div class="col-md-7">
       <div class="book-info h-100">
-        <h2>{{bookData?.name}}</h2>
-        <p><strong>Author:</strong> {{bookData?.author?.firstName}} {{bookData?.author?.lastName}}</p>
-        <p><strong>Average Rating: </strong>
-        @for(star of getStars(avgRating); track $index){
-          <fa-icon [icon]="faStar" (click)="rate(star)"></fa-icon>
-        }
+        <h2>{{ bookData?.name }}</h2>
+        <p>
+          <strong>Author:</strong> {{ bookData?.author?.firstName }}
+          {{ bookData?.author?.lastName }}
         </p>
-        <p>{{bookData?.description}}</p>
-        <p><strong>Category:</strong> {{bookData?.category?.categoryName}}</p>
+        <p>
+          <strong>Average Rating: </strong>
+          @for(star of getStars(bookData?.avgRating); track $index){
+          <fa-icon [icon]="faStar"></fa-icon>
+          }
+        </p>
+        <p><strong>Description:</strong> {{ bookData?.description }}</p>
+        <p><strong>Category:</strong> {{ bookData?.category?.categoryName }}</p>
       </div>
       <!-- user review-->
       <div class="user-review">
-        @if(userBookData?._id){
-          @if(userBookData?.review){
-            <p class="review-title">Your Review</p>
-            <p>salma</p>
-            <p>{{userBookData.review}}</p>
-            <button [routerLink]="['book-review', userBookData?._id]" class="btn btn-danger">edit your review</button>
-          } @else{
-            <button [routerLink]="['book-review', userBookData?._id]"  class="btn btn-danger">write a review</button>
-          }
-        }
+        @if(userBookData?._id){ @if(userBookData?.review){
+        <p class="review-title">Your Review</p>
+        <p>salma</p>
+        <p>{{ userBookData.review }}</p>
+        <button
+          [routerLink]="['book-review', userBookData?._id]"
+          class="btn btn-danger"
+        >
+          edit your review
+        </button>
+        } @else{
+        <button
+          [routerLink]="['book-review', userBookData?._id]"
+          class="btn btn-danger"
+        >
+          write a review
+        </button>
+        } }
       </div>
-      <!--reviews container-->
       <div class="reviews-container">
         <p class="review-title">Reviews</p>
         @for(review of bookReviews; track $index){
-          <div class="review" >
-            <p class="reviewer-name">{{review.user.userName}}</p>
-            <p class="review-content">{{review.review}}</p>
-          </div>
+        <div class="review">
+          <p class="reviewer-name">{{ review.user.userName }}</p>
+          <p class="review-content">{{ review.review }}</p>
+        </div>
         }
       </div>
     </div>
   </div>
 </div>
-
-
-
-<!--
-@for(star of rates; track $index){
-<fa-icon [icon]="faStar" (click)="rate(star)"></fa-icon>
-} -->
-
-
-
 
 <!--
 show all reviews except current user

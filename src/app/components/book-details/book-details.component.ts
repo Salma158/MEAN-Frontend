@@ -5,11 +5,12 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { ReviewsService } from '../../services/reviews.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [FormsModule, RouterLink, FontAwesomeModule],
+  imports: [FormsModule, RouterLink, FontAwesomeModule, CommonModule],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css',
 })
@@ -24,6 +25,8 @@ export class BookDetailsComponent {
   avgRating!: number;
   rates = [1, 2, 3, 4, 5];
   bookReviews! : any;
+  selectedRating: number = 0;
+  
 
   constructor(private BooksService: BooksService, private ReviewsService : ReviewsService) {}
 
@@ -35,8 +38,9 @@ export class BookDetailsComponent {
       next: (res: any) => {
         if (res && res.data) {
           this.userBookData = res.data.userBook;
-          console.log(this.userBookData)
           this.selectedOption = this.userBookData.status || 'wish to read';
+          this.selectedRating = this.userBookData.rating;
+          console.log(this.selectedRating)
         } else {
           this.selectedOption = 'wish to read';
         }
@@ -65,8 +69,7 @@ export class BookDetailsComponent {
     })
     this.ReviewsService.getReviews(this.id).subscribe(
       {
-        next: (res: any) => {
-          
+        next: (res: any) => { 
           this.bookReviews = res.data.bookReviews
         },
         error: (error: any) => {
@@ -116,8 +119,11 @@ export class BookDetailsComponent {
   }
 
 
+
+
   rate(rating: number) {
     console.log('Rating:', rating);
+    this.selectedRating = rating; // Update selectedRating
     this.ReviewsService.postOrEditRating(this.userBookData._id, rating).subscribe({
       next: (res: any) => {
         console.log(res);
@@ -125,15 +131,13 @@ export class BookDetailsComponent {
       error: (error: any) => {
         console.error('Error in the rating functionality:', error);
       },
-    })
+    });
   }
 
-  getStars(rating: number): number[] {
-    const stars = [];
-    for (let i = 0; i < Math.floor(rating); i++) {
-      stars.push(i);
-    }
-    return stars;
+
+  getStars(avgRating: number): number[] {
+    const roundedRating = Math.round(avgRating);
+    return Array.from({ length: roundedRating }, () => 1);
   }
 
 }

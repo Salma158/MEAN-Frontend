@@ -70,4 +70,22 @@
     margin-top: 5px;
   }
   
+  .star-container {
+    display: flex;
+  }
   
+  .star-rating {
+    display : inline block;
+  }
+  
+  .fa-icon {
+    cursor: pointer;
+  }
+  
+  .fa-star {
+    color: #ccc; 
+  }
+
+  .star-rating.rated {
+    color: gold;
+  }

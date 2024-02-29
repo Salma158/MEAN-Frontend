@@ -1,18 +1,47 @@
 <div class="container">
   <h2>Popular Books</h2>
   <div class="row">
-    @for (book of popularBooks; track $index){
-    <div class="col-md-3 mb-4">
-      <a [routerLink]="['book-details', book._id]" style="text-decoration: none;">
+    @for (book of popularBooks; track $index) {
+      <div class="col-md-3 mb-4">
+        <a [routerLink]="['book-details', book._id]" style="text-decoration: none;">
+          <div class="card">
+            <img src="./../../../assets/titanic.jpg" class="card-img-top" [alt]="book.name + ' Cover'">
+            <div class="card-body">
+              <h5 class="card-title">{{ book?.name }}</h5>
+              <p class="card-text">{{ book?.author.firstName }} {{ book?.author.lastName }}</p>
+              @for(star of getStars(book.avgRating); track $index){
+                <fa-icon [icon]="faStar"></fa-icon>
+              }
+            </div>
+          </div>
+        </a>
+      </div>
+    }
+  </div>
+
+  <h2>Popular Categories</h2>
+  <div class="row">
+    @for (category of popularCategories; track $index) {
+      <div class="col-md-3 mb-4">
         <div class="card">
-          <img src="./../../../assets/titanic.jpg" class="card-img-top" [alt]="book.name + ' Cover'">
           <div class="card-body">
-            <h5 class="card-title">{{ book?.name }}</h5>
-            <p class="card-text">{{ book?.author.firstName }} {{ book?.author.lastName }}</p> 
+            <h5 class="card-title">{{ category?.categoryName }}</h5>
           </div>
         </div>
-      </a>
-    </div>
+      </div>
+    }
+  </div>
+
+  <h2>Popular Authors</h2>
+  <div class="row">
+    @for (author of popularAuthors; track $index) {
+      <div class="col-md-3 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ author.firstName }} {{ author.lastName }}</h5>
+          </div>
+        </div>
+      </div>
     }
   </div>
 </div>

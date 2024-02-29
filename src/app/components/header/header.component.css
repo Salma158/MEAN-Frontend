@@ -1,0 +1,54 @@
+/* Custom Styles for Navbar */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-brand-icon {
+    font-size: 1.8rem;
+}
+
+.brand-text {
+    vertical-align: middle;
+}
+
+.navbar-nav .nav-link {
+    padding: 10px 15px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+@media (max-width: 991.98px) {
+    .navbar-nav {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .navbar-toggler {
+        margin-top: 5px;
+    }
+
+    .btn-outline-primary {
+        margin-top: 10px;
+    }
+}
