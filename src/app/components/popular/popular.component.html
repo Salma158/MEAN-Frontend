@@ -1,0 +1,18 @@
+<div class="container">
+  <h2>Popular Books</h2>
+  <div class="row">
+    @for (book of popularBooks; track $index){
+    <div class="col-md-3 mb-4">
+      <a [routerLink]="['book-details', book._id]" style="text-decoration: none;">
+        <div class="card">
+          <img src="./../../../assets/titanic.jpg" class="card-img-top" [alt]="book.name + ' Cover'">
+          <div class="card-body">
+            <h5 class="card-title">{{ book?.name }}</h5>
+            <p class="card-text">{{ book?.author.firstName }} {{ book?.author.lastName }}</p> 
+          </div>
+        </div>
+      </a>
+    </div>
+    }
+  </div>
+</div>

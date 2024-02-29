@@ -1,0 +1,156 @@
+<div class="container container-centered">
+  <div class="row">
+    <h2>Bookshelves</h2>
+    <div class="col-md-3 sidebar">
+      <div class="sidebar-item">
+        <input type="text" class="form-control" placeholder="Search" />
+      </div>
+      <div class="sidebar-item">
+        <button class="nav-link" (click)="getUserBooks()">All</button>
+      </div>
+      <div class="sidebar-item">
+        <button class="nav-link" (click)="getBooksByStatus('already read')">
+          Read
+        </button>
+      </div>
+      <div class="sidebar-item">
+        <button
+          class="nav-link"
+          (click)="getBooksByStatus('currently reading')"
+        >
+          Currently Reading
+        </button>
+      </div>
+      <div class="sidebar-item">
+        <button class="nav-link" (click)="getBooksByStatus('wish to read')">
+          Wish to Read
+        </button>
+      </div>
+    </div>
+    <div class="col-md-9 books-section">
+      <div class="row">
+        @for (userbook of booksData; track $index){
+        <div class="col-md-3">
+          <a (click)="sendUserBook(userbook.book._id)">
+            <div class="book-card">
+              <img
+                src="./../../../assets/images/janeEyre.jpg"
+                alt="Book Cover"
+                class="book-cover"
+              />
+              <div class="book-title">{{ userbook?.book.name }}</div>
+              <div class="book-author">{{ userbook?.book.auther }}</div>
+              <div class="book-rating">Avg Rating</div>
+            </div>
+          </a>
+        </div>
+        }
+
+        <div class="row justify-content-center mt-3">
+          <div class="pagination-buttons">
+            @for (page of totalPages; track $index) {
+            <button
+              (click)="onPageChange(page)"
+              class="btn btn-sm btn-secondary mx-1"
+            >
+              {{ page }}
+            </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/janeEyre.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/NarrowRoadBetweenDesiresHiRes.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/takeMyHand.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+         <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="book-card">
+            <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
+            <div class="book-title">Book Name</div>
+            <div class="book-author">Author</div>
+            <div class="book-rating">★★★★☆</div>
+          </div>
+        </div> 
+       </div>
+    </div> -->
+</div>
