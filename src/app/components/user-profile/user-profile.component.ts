@@ -4,10 +4,11 @@ import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router'
 import { PopularComponent } from '../popular/popular.component';
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [RouterLink, PopularComponent, MatPaginatorModule],
+  imports: [RouterLink, PopularComponent, MatPaginatorModule, FormsModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
@@ -18,6 +19,7 @@ export class UserProfileComponent {
    userId = '65d9abb351fcf55837d66df8';
    status! : string;
    totalItems = 0;
+   searched! : string;
 
    
   constructor(private booksService: BooksService, private router : Router) {}
@@ -25,18 +27,18 @@ export class UserProfileComponent {
   sendUserBook(id: string) {
     this.router.navigate([`/book-details/${id}`]);
   }
-  ngOnInit(): void {
-   // this.getBooks();
-   this.booksService.searchBook("ti").subscribe({
+
+  searchBook(){
+  this.booksService.searchBook(this.searched).subscribe({
     next: (res: any) => {
-      console.log(res)
+      this.booksData = res.data.books;
+      console.log(this.booksData)
     },
     error: (error: any) => {
-      console.error('Error fetching books', error);
+      console.error('Error searching book', error);
     }
   })
-  }
-
+}
   getBooks(): void {
     this.booksService.getBooksByStatus(this.userId, this.status, this.currentPage, this.limit).subscribe({
 

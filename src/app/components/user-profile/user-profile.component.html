@@ -3,11 +3,12 @@
     <h2>Bookshelves</h2>
     <div class="col-md-3 sidebar">
       <div class="sidebar-item">
-        <input type="text" class="form-control" placeholder="Search" />
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searched"  />
+        <button (click)="searchBook()">search</button>
       </div>
-      <div class="sidebar-item">
-        <!-- <button class="nav-link" (click)="getUserBooks()">All</button> -->
-      </div>
+      <!-- <div class="sidebar-item">
+        <button class="nav-link" (click)="getUserBooks()">All</button> 
+      </div> -->
       <div class="sidebar-item">
         <button class="nav-link" (click)="changeStatus('already read')">
           Already Read
@@ -38,8 +39,8 @@
                 alt="Book Cover"
                 class="book-cover"
               />
-              <div class="book-title">{{ userbook?.book.name }}</div>
-              <div class="book-author">{{ userbook?.book.auther }}</div>
+              <div class="book-title">{{ userbook?.book?.name }}</div>
+              <div class="book-author">{{ userbook?.book?.auther }}</div>
               <div class="book-rating">Avg Rating</div>
             </div>
           </a>
