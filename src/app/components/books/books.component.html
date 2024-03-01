@@ -102,7 +102,7 @@
 <p-table [value]="books" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
-            <th>ID</th>
+            
             <th>Category</th>
             <th>Actions</th>
         </tr>
@@ -110,7 +110,8 @@
     <ng-template pTemplate="body" let-book>
         <tr>
             <td>1</td>
-            <td>{{ book.categoryName }}</td>
+            <td>{{ book.category }}</td>
+            <td>{{ book.author }}</td>
             <td>
                 <button class="btn btn-info" (click)="DeleteBook(book._id)">Delete</button>
                 <button class="btn btn-info" (click)="openUpdateBoookModal(updateBookModal, book)">Update</button>
