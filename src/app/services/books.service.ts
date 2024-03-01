@@ -31,7 +31,7 @@ export class BooksService {
 
   getAllBooks(page: number, limit: number): Observable<any> {
     let queryParams = new HttpParams().set('limit', limit).set('page', page);
-    return this.http.get('http://localhost:3000/books', {
+    return this.http.get('https://localhost:3000/books', {
       params: queryParams,
     });
   }

@@ -1,0 +1,24 @@
+<h2>Authors List</h2>
+<hr />
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  @for (author of authors; track author._id) {
+  <div class="col">
+    <a (click)="sendAuthor(author?._id)">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ author.firstName }} {{ author.lastName }}
+          </h5>
+        </div>
+      </div>
+    </a>
+  </div>
+  }
+  <mat-paginator
+    [length]="totalItems"
+    [pageSize]="limit"
+    (page)="onPageChange($event.pageIndex + 1)"
+  >
+  </mat-paginator>
+</div>

@@ -1,0 +1,22 @@
+<h2>Author Info</h2>
+<hr>
+  <div class="card border-secondary mb-3" style="max-width: 18rem;">
+    <div class="card-header"></div>
+    <div class="card-body text-secondary">
+      <h5 class="card-title">{{authorData?.firstName}} {{authorData?.lastName}}</h5>
+      <p class="card-text">Date Of Birth: {{authorData?.dob | date:'mediumDate'}}</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      Author's Books
+    </div>
+    @for (book of books; track book._id) {
+    <div class="card-body">
+      <h5 class="card-title">{{book.name}}</h5>
+      <p class="card-text">{{book.status}}</p>
+    </div>
+    <hr>
+}
+  </div>
