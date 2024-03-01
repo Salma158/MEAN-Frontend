@@ -27,7 +27,7 @@ export class UserProfileComponent {
 
   ngOnInit() {
     this.userId = JSON.parse(window.localStorage.getItem('userId') || '');
-    this.booksService.getAllBooks(this.currentPage, this.limit).subscribe({
+    this.booksService.getAllBooksPaginated(this.currentPage, this.limit).subscribe({
       next: (res: any) => {
         this.allBooksData = res.data.books;
       },

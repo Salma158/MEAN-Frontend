@@ -7,21 +7,19 @@ import { StorageServiceService } from './storage-service.service';
   providedIn: 'root'
 })
 export class AuthorsService {
-
+  
   token = this.storageService.getUser()?.token;
   role = this.storageService.getUser()?.role;
-
  headers = new HttpHeaders({
    'Authorization': this.token,
    'role': this.role
  });
   constructor(private http :HttpClient , private storageService :StorageServiceService ) { }
-  addbAuthors(categoryName:string ): Observable<any>{
+  addbAuthors(formData:any ): Observable<any>{
     
     return this.http.post("https://goodreads-snxv.onrender.com/authors/",
-      {
-        categoryName
-      },
+       formData
+      ,
       {headers:this.headers}
     
     );
@@ -32,9 +30,9 @@ export class AuthorsService {
     {headers:this.headers}
     );
   }
- updateAuthors(id:string , categoryName:string ): Observable<any>{
+ updateAuthors(id:string , data:any ): Observable<any>{
     return this.http.patch(`https://goodreads-snxv.onrender.com/authors/${id}`,
-    {categoryName},
+    {data},
     {headers:this.headers}
     );
   }

@@ -22,4 +22,6 @@ export class AuthService {
     
     return this.http.post("https://goodreads-snxv.onrender.com/user/", formData, { headers });
   }
+
 }
+

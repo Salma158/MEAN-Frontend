@@ -1,1 +1,176 @@
-<p>authors works!</p>
+
+<p-button (click)="showDialog()" icon="pi pi-plus-circle"  ></p-button>
+<p-dialog header="add category" [(visible)]="visible" [style]="{width: '50vw'}">
+
+<div class="grid p-2">
+    <div class="col-12 d-flex justify-content-center align-items-center vh-100">
+        <div class="col-md-6 col-lg-6   col-sm-12 ">
+            <div class="text-center border-round-sm font-bold">
+                
+                    
+                    <form  [formGroup]="authorForm"  (ngSubmit)="addAuthor()" novalidate>
+
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-2">
+                                <label for="firstName">firstName</label>
+                                <input pInputText 
+                                    id="firstName" 
+                                    name="firstName" 
+                                    formControlName="firstName"
+                                />
+                            </div>
+                        </div>
+                        @if(authorForm.controls['firstName'].invalid && (authorForm.controls['firstName'].touched|| authorForm.controls['lastName'].dirty)) {
+                            <div id="firstName" class="form-text text-danger">
+                              @if(authorForm.controls['firstName'].errors?.['required']){
+                              <small>This field is required</small>
+                              } @if(authorForm.controls['firstName'].errors?.['minlength']) {
+                              <small>Min. length is 5 character</small>
+                              }
+                            </div>
+                            }
+                            <div class="row justify-content-center">
+                                <div class="col-8 p-2">
+                                    <label for="lastName">lastName</label>
+                                    <input pInputText 
+                                        id="lastName" 
+                                        name="lastName" 
+                                        formControlName="lastName"
+                                    />
+                                </div>
+                            </div>
+                            @if(authorForm.controls['lastName'].invalid && (authorForm.controls['lastName'].touched|| authorForm.controls['lastName'].dirty)) {
+                                <div id="lastName" class="form-text text-danger">
+                                  @if(authorForm.controls['lastName'].errors?.['required']){
+                                  <small>This field is required</small>
+                                  } @if(authorForm.controls['lastName'].errors?.['minlength']) {
+                                  <small>Min. length is 5 character</small>
+                                  }
+                                </div>
+                                }
+                                <div class="row justify-content-center">
+                                    <div class="col-8 p-2">
+                                        <label for="dob">Date of birth</label>
+                                        <input type="date" 
+                                            id="dob" 
+                                            name="dob" 
+                                            formControlName="dob"
+                                        />
+                                    </div>
+                                </div>
+                                
+
+<div class="card flex justify-content-center">
+    <label for="photo">Photo</label>
+    <input type="file" id="photo" name="photo" (change)="onUpload($event)">
+    <!-- Error handling for photo -->
+</div>
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-2">
+                                <p-button type="Submit" label="Submit"></p-button>
+                            </div>
+                        </div>
+                    </form>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+</p-dialog>
+<p-table [value]="authors" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Photo</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>date of birth</th>
+
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-author let-i="index">
+        <tr>
+            <td><img [src]="'https://goodreads-snxv.onrender.com/images/authors/'+author.photo" alt="Author Photo" style="width: 50px; height: 50px;"></td>
+            <td>{{ author.firstName }}</td>
+            <td>{{ author.lastName }}</td>
+            <td>{{ author.dob }}</td>
+
+            
+            <td>
+                <button class="btn btn-info" (click)="DeleteAuthor(author._id)">Delete</button>
+                <button class="btn btn-info" (click)="openUpdateAuthorModal(updateAuthorModal, author)">Update</button>
+                <ng-template #updateAuthorModal let-modal>
+                    <div class="modal-body">
+                      <label for="updateAuthorName">Updated Author:</label>
+                      <form  [formGroup]="updateAuthorForm"  (ngSubmit)="updateAuthor()" novalidate>
+
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-2">
+                                <label for="firstName" >firstName</label>
+                                <input pInputText 
+                                    id="firstName" 
+                                    name="firstName" 
+                                    formControlName="firstName"
+                                />
+                            </div>
+                        </div>
+                        @if(updateAuthorForm.controls['firstName'].invalid && (updateAuthorForm.controls['firstName'].touched|| updateAuthorForm.controls['lastName'].dirty)) {
+                            <div id="firstName" class="form-text text-danger">
+                              @if(updateAuthorForm.controls['firstName'].errors?.['required']){
+                              <small>This field is required</small>
+                              } @if(updateAuthorForm.controls['firstName'].errors?.['minlength']) {
+                              <small>Min. length is 5 character</small>
+                              }
+                            </div>
+                            }
+                            <div class="row justify-content-center">
+                                <div class="col-8 p-2">
+                                    <label for="lastName">lastName</label>
+                                    <input pInputText 
+                                        id="lastName" 
+                                        name="lastName" 
+                                        formControlName="lastName"
+                                    />
+                                </div>
+                            </div>
+                            @if(updateAuthorForm.controls['lastName'].invalid && (updateAuthorForm.controls['lastName'].touched|| authorForm.controls['lastName'].dirty)) {
+                                <div id="lastName" class="form-text text-danger">
+                                  @if(updateAuthorForm.controls['lastName'].errors?.['required']){
+                                  <small>This field is required</small>
+                                  } @if(updateAuthorForm.controls['lastName'].errors?.['minlength']) {
+                                  <small>Min. length is 5 character</small>
+                                  }
+                                </div>
+                                }
+                                <div class="row justify-content-center">
+                                    <div class="col-8 p-2">
+                                        <label for="dob">Date of birth</label>
+                                        <input type="date" 
+                                            id="dob" 
+                                            name="dob" 
+                                            formControlName="dob"
+                                        />
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Author</button>
+                    </form>
+                      
+                    </div>
+                  
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+                      <button type="button" class="btn btn-primary" (click)="updateAuthor()">Update Author</button>
+                    </div>
+                  </ng-template>
+                
+ 
+                    
+                                    
+    
+   
+                
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { CommonModule } from '@angular/common';
+import { NgbModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'app-category',
   standalone: true,
@@ -15,13 +16,14 @@ import { CommonModule } from '@angular/common';
     ButtonModule,
     FormsModule,
     InputTextModule,
-    CommonModule
+    CommonModule,
+    NgbModule
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'
 })
 export class CategoryComponent {
-  constructor (private categoryService :CategoryService){}
+  constructor (private categoryService :CategoryService, private modalService: NgbModal){}
   categories: Array<object> = [];
   categoryFormValues = {
     categoryName:'',
@@ -37,15 +39,10 @@ export class CategoryComponent {
     this.getAll()
   }
   visible: boolean = false;
-  visible2: boolean = false;
-
-
   showDialog() {
-      this.visible = true;
-  }
-  showDialog2() {
-    this.visible2 = true;
+    this.visible = true;
 }
+
   DeleteCategory(id:string){
     this.categoryService.deleteCategory(id).subscribe((data)=>{
       console.log(data)
@@ -67,12 +64,19 @@ export class CategoryComponent {
     })
     
   }
-  updateCategory(id:string,categoryName:string){
-    console.log(id)
-    this.categoryService.updateCategory(id,categoryName).subscribe((data)=>{
+  updateCategory(){
+    
+    this.categoryService.updateCategory(this.selectedCategory._id, this.selectedCategory.name).subscribe((data)=>{
       console.log(data)
       this.getAll()
-      this.visible2=false
+    
     })
+
   }
+  selectedCategory: any = {};
+  openUpdateCategoryModal(content: any, categoryId: number): void {
+    console.log("Category ID:", categoryId); 
+    this.selectedCategory = { _id: categoryId }; 
+    this.modalService.open(content, { centered: true });
+}
 }
