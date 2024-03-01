@@ -1,1 +1,206 @@
-<p>books works!</p>
+
+<p-button (click)="showDialog()" icon="pi pi-plus-circle"  ></p-button>
+<p-dialog header="add category" [(visible)]="visible" [style]="{width: '50vw'}">
+
+<div class="grid p-2">
+    <div class="col-12 d-flex justify-content-center align-items-center vh-100">
+        <div class="col-md-6 col-lg-6   col-sm-12 ">
+            <div class="text-center border-round-sm font-bold">
+                
+                    
+                    <form  [formGroup]="bookForm"  (ngSubmit)="addBook()" novalidate>
+
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-2">
+                                <select class="form-select" id="author"  formControlName="author">
+                                    <option selected> choose author</option>
+                                    <option *ngFor="let a of authors" [value]="a._id">{{ a.firstName }} {{ a.lastName }}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        @if(bookForm.controls['author'].invalid && (bookForm.controls['author'].touched|| bookForm.controls['author'].dirty)) {
+                            <div id="author" class="form-text text-danger">
+                              @if(bookForm.controls['author'].errors?.['required']){
+                              <small>This field is required</small>
+                              }
+                            </div>
+                            }
+                            <div class="row justify-content-center">
+                                <div class="col-8 p-2">
+                                    <select id="category" class="form-select" formControlName="category">
+                                        <option selected> choose category</option>
+                                        <option *ngFor="let c of category" [value]="c._id">{{ c.categoryName}}</option>
+                                    </select>
+                                </div>
+    
+                            </div>
+                            @if(bookForm.controls['author'].invalid && (bookForm.controls['author'].touched|| bookForm.controls['author'].dirty)) {
+                                <div id="firstName" class="form-text text-danger">
+                                  @if(bookForm.controls['author'].errors?.['required']){
+                                  <small>This field is required</small>
+                                  }
+                                </div>
+                                }
+                                <div class="row justify-content-center">
+                                    <div class="col-8 p-2">
+                                        <label for="name">bookName</label>
+                                        <input pInputText 
+                                            id="name" 
+                                            name="name" 
+                                            formControlName="name"
+                                        />
+                                    </div>
+                                </div>
+                                @if(bookForm.controls['name'].invalid && (bookForm.controls['name'].touched|| bookForm.controls['name'].dirty)) {
+                                    <div id="name" class="form-text text-danger">
+                                      @if(bookForm.controls['name'].errors?.['required']){
+                                      <small>This field is required</small>
+                                      } @if(bookForm.controls['name'].errors?.['minlength']) {
+                                      <small>Min. length is 5 character</small>
+                                      }
+                                    </div>
+                                    }
+                                    <div class="row justify-content-center">
+                                        <div class="col-8 p-2">
+                                            <label for="description">description</label>
+                                            <input pInputText 
+                                                id="description" 
+                                                name="description" 
+                                                formControlName="description"
+                                            />
+                                        </div>
+                                    </div>
+                                    @if(bookForm.controls['description'].invalid && (bookForm.controls['description'].touched|| bookForm.controls['description'].dirty)) {
+                                        <div id="description" class="form-text text-danger">
+                                          @if(bookForm.controls['description'].errors?.['required']){
+                                          <small>This field is required</small>
+                                          } @if(bookForm.controls['description'].errors?.['minlength']) {
+                                          <small>Min. length is 5 character</small>
+                                          }
+                                        </div>
+                                        }
+
+
+<div class="card flex justify-content-center">
+    <label for="image">image</label>
+    <input type="file" id="image" name="image" (change)="onUpload($event)">
+</div>
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-2">
+                                <p-button type="Submit" label="Submit"></p-button>
+                            </div>
+                        </div>
+                    </form>
+            
+            </div>
+        </div>
+    </div>
+</div>
+
+</p-dialog>
+<p-table [value]="books" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-book>
+        <tr>
+            <td>1</td>
+            <td>{{ book.categoryName }}</td>
+            <td>
+                <button class="btn btn-info" (click)="DeleteBook(book._id)">Delete</button>
+                <button class="btn btn-info" (click)="openUpdateBoookModal(updateBookModal, book)">Update</button>
+                <ng-template #updateBookModal let-modal>
+                    <div class="modal-body">
+                      <label for="updateBookName">Updated Book:</label>
+                      <div class="row justify-content-center">
+                        <div class="col-8 p-2">
+                            <select class="form-select" id="author"  formControlName="author">
+                                <option selected> choose author</option>
+                                <option *ngFor="let a of authors" [value]="a._id">{{ a.firstName }} {{ a.lastName }}</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    @if(bookForm.controls['author'].invalid && (bookForm.controls['author'].touched|| bookForm.controls['author'].dirty)) {
+                        <div id="author" class="form-text text-danger">
+                          @if(bookForm.controls['author'].errors?.['required']){
+                          <small>This field is required</small>
+                          }
+                        </div>
+                        }
+                        <div class="row justify-content-center">
+                            <div class="col-8 p-2">
+                                <select id="category" class="form-select" formControlName="category">
+                                    <option selected> choose category</option>
+                                    <option *ngFor="let c of category" [value]="c._id">{{ c.categoryName}}</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        @if(bookForm.controls['author'].invalid && (bookForm.controls['author'].touched|| bookForm.controls['author'].dirty)) {
+                            <div id="firstName" class="form-text text-danger">
+                              @if(bookForm.controls['author'].errors?.['required']){
+                              <small>This field is required</small>
+                              }
+                            </div>
+                            }
+                            <div class="row justify-content-center">
+                                <div class="col-8 p-2">
+                                    <label for="name">bookName</label>
+                                    <input pInputText 
+                                        id="name" 
+                                        name="name" 
+                                        formControlName="name"
+                                    />
+                                </div>
+                            </div>
+                            @if(bookForm.controls['name'].invalid && (bookForm.controls['name'].touched|| bookForm.controls['name'].dirty)) {
+                                <div id="name" class="form-text text-danger">
+                                  @if(bookForm.controls['name'].errors?.['required']){
+                                  <small>This field is required</small>
+                                  } @if(bookForm.controls['name'].errors?.['minlength']) {
+                                  <small>Min. length is 5 character</small>
+                                  }
+                                </div>
+                                }
+                                <div class="row justify-content-center">
+                                    <div class="col-8 p-2">
+                                        <label for="description">description</label>
+                                        <input pInputText 
+                                            id="description" 
+                                            name="description" 
+                                            formControlName="description"
+                                        />
+                                    </div>
+                                </div>
+                                @if(bookForm.controls['description'].invalid && (bookForm.controls['description'].touched|| bookForm.controls['description'].dirty)) {
+                                    <div id="description" class="form-text text-danger">
+                                      @if(bookForm.controls['description'].errors?.['required']){
+                                      <small>This field is required</small>
+                                      } @if(bookForm.controls['description'].errors?.['minlength']) {
+                                      <small>Min. length is 5 character</small>
+                                      }
+                                    </div>
+                                    }
+                    <div class="row justify-content-center">
+                        <div class="col-8 p-2">
+                            <p-button type="Submit" label="Submit"></p-button>
+                        </div>
+                    </div>
+                      
+                    </div>
+                  
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+                    </div>
+                  </ng-template>
+                
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

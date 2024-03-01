@@ -16,12 +16,11 @@ export class BooksService {
    'role': this.role
  });
   constructor(private http :HttpClient , private storageService :StorageServiceService ) { }
-  addbBook(categoryName:string ): Observable<any>{
+  addbBook(formData:any ): Observable<any>{
     
     return this.http.post("https://goodreads-snxv.onrender.com/books/",
-      {
-        categoryName
-      },
+        formData
+      ,
       {headers:this.headers}
     
     );
@@ -32,14 +31,18 @@ export class BooksService {
     {headers:this.headers}
     );
   }
- updateBook(id:string , categoryName:string ): Observable<any>{
+ updateBook(id:string , formData:any ): Observable<any>{
     return this.http.patch(`https://goodreads-snxv.onrender.com/books/${id}`,
-    {categoryName},
+    formData,
     {headers:this.headers}
     );
   }
   getAllCategories(): Observable<any>{
     return this.http.get(`https://goodreads-snxv.onrender.com/categories/`
+    );
+  }
+  getAllBooks(): Observable<any>{
+    return this.http.get(`https://goodreads-snxv.onrender.com/books/`
     );
   }
   getAllAuthors(): Observable<any>{
