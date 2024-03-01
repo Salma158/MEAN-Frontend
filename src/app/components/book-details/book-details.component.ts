@@ -28,6 +28,7 @@ export class BookDetailsComponent {
   bookReviews!: any;
   selectedRating: number = 0;
   userId!: string;
+  categoryId!: string;
 
   constructor(
     private BooksService: BooksService,
@@ -55,6 +56,7 @@ export class BookDetailsComponent {
     this.BooksService.getBookById(this.id).subscribe({
       next: (res: any) => {
         this.bookData = res.data.book;
+      //  this.categoryId = 
       },
       error: (error: any) => {
         console.error('Error fetching the book:', error);

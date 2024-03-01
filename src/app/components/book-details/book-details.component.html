@@ -45,15 +45,22 @@
 
         <div class="star-container">
           @for(star of rates; track $index){
-            <div >
-              <fa-icon [icon]="faStar" (click)="rate($index + 1)" class="star-rating" [ngClass]="{'rated': $index < selectedRating}"></fa-icon>
-            </div>
+          <div>
+            <fa-icon
+              [icon]="faStar"
+              (click)="rate($index + 1)"
+              class="star-rating"
+              [ngClass]="{ rated: $index < selectedRating }"
+            ></fa-icon>
+          </div>
           }
         </div>
 
         <button (click)="removeUserBook()" class="btn btn-danger mt-auto">
           Remove from My Shelf
         </button>
+
+        <strong>Category : </strong> <a></a>
       </div>
     </div>
 
