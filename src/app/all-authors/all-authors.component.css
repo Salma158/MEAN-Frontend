@@ -1,0 +1,12 @@
+h2{
+    margin: 2%;
+    text-align: center;
+}
+.col{
+    width: 50%;
+}
+
+.card-title{
+    text-align: center;
+    font-size: 20px;
+}

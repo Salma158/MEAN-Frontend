@@ -1,0 +1,40 @@
+.fas{
+    margin-top: 15px;
+    margin-right: 13px;
+    color: orangered;
+    background-color: lightgoldenrodyellow;
+    font-size: 20px;
+}
+.fas:hover{
+    cursor: pointer;
+    color: black;
+    font-size: 23px;
+}
+.nav-link{
+    color: orangered;
+    font-size: 20px;
+}
+
+.nav-link:hover{
+    color: black;
+    font-size: 23px;
+}
+
+.container-fluid{
+    background-color: lightgoldenrodyellow;
+}
+
+a{
+    cursor: pointer;
+}
+
+.navbar-brand{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 900;
+    font-size: 40px;
+}
+
+.active_link{
+    color: black;
+    font-weight: bold;
+}

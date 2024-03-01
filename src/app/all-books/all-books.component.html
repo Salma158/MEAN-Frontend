@@ -1,0 +1,16 @@
+<h2>Books List</h2>
+<hr>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @for (book of books; track book._id){
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><a href="#">{{book.name}}</a></h5>
+            <h5 class="card-title"><a href="#">{{ book.author.firstName }} {{ book.author.lastName }}</a></h5>
+          </div>
+        </div>
+      </div>
+}
+<mat-paginator [length]="totalItems" [pageSize]="limit" (page)="onPageChange($event.pageIndex + 1)">
+</mat-paginator>
+  </div>
