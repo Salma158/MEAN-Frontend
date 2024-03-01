@@ -28,11 +28,16 @@
                 </li>
             </ul>
 
-            <button class="btn btn-outline-primary ms-lg-4" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <button class="btn btn-outline-primary ms-lg-4" type="button" data-bs-toggle="modal" data-bs-target="#loginModal" 
+            [routerLink]="['log-in']" >
                 <i class="bi bi-person"></i> Login
             </button>
-            <button class="btn btn-outline-primary ms-lg-4" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <button class="btn btn-outline-primary ms-lg-4" type="button" data-bs-toggle="modal" data-bs-target="#loginModal"
+            [routerLink]="['sign-up']">
                 <i class="bi bi-person"></i> Sign Up
+            </button>
+            <button class="btn btn-outline-primary ms-lg-4" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <i class="bi bi-person"></i> Log out
             </button>
         </div>
     </div>

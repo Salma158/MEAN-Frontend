@@ -11,20 +11,20 @@ export class ReviewsService {
   
    //works for editing review by id
   addReview(id: string, review: string): Observable<any> {
-    return this.http.patch(`http://localhost:3000/userbooks/${id}`, { review })
+    return this.http.patch(`https://goodreads-snxv.onrender.com/userbooks/${id}`, { review })
   }
 
   getReviews(book : string): Observable<any> {
-    return this.http.get(`http://localhost:3000/userbooks/reviews/${book}`)
+    return this.http.get(`https://goodreads-snxv.onrender.com/userbooks/reviews/${book}`)
   }
 
 
   postOrEditRating(id: string, rating : number): Observable<any> {
-    return this.http.patch(`http://localhost:3000/userbooks/${id}`, {rating})
+    return this.http.patch(`https://goodreads-snxv.onrender.com/userbooks/${id}`, {rating})
   }
 
   getAvgRating(bookId: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/books/avgRating/${bookId}`)
+    return this.http.get(`hhttps://goodreads-snxv.onrender.com/books/avgRating/${bookId}`)
   }
 
 }

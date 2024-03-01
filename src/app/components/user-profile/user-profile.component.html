@@ -2,9 +2,9 @@
   <div class="row">
     <h2>Bookshelves</h2>
     <div class="col-md-3 sidebar">
-      <div class="sidebar-item">
-        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searched"  />
-        <button (click)="searchBook()">search</button>
+      <div class="sidebar-item search">
+        <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searched" />
+        <button class="btn btn-success" (click)="searchBook()">Search</button>
       </div>
       <!-- <div class="sidebar-item">
         <button class="nav-link" (click)="getUserBooks()">All</button> 
@@ -30,6 +30,38 @@
     </div>
     <div class="col-md-9 books-section">
       <div class="row">
+        @if(allBooksData){
+          @for (book of allBooksData; track $index){
+            <div class="col-md-3">
+               <a (click)="sendUserBook(book?._id)">
+                <div class="book-card">
+                  <img
+                    src="./../../../assets/images/janeEyre.jpg"
+                    alt="Book Cover"
+                    class="book-cover"
+                  />
+                   <div class="book-title">{{ book?.name }}</div>
+                </div>
+              </a> 
+            </div>
+          }
+        }
+        @if(searchedbooks){
+          @for (search of searchedbooks; track $index){
+            <div class="col-md-3">
+               <a (click)="sendUserBook(search?._id)">
+                <div class="book-card">
+                  <img
+                    src="./../../../assets/images/janeEyre.jpg"
+                    alt="Book Cover"
+                    class="book-cover"
+                  />
+                   <div class="book-title">{{ search?.name }}</div>
+                </div>
+              </a> 
+            </div>
+          }
+        }
         @for (userbook of booksData; track $index){
         <div class="col-md-3">
           <a (click)="sendUserBook(userbook.book._id)">
@@ -39,8 +71,8 @@
                 alt="Book Cover"
                 class="book-cover"
               />
-              <div class="book-title">{{ userbook?.book?.name }}</div>
-              <div class="book-author">{{ userbook?.book?.auther }}</div>
+              <div class="book-title">{{ userbook?.book.name }}</div>
+              <div class="book-author">{{ userbook?.book.auther }}</div>
               <div class="book-rating">Avg Rating</div>
             </div>
           </a>
@@ -65,121 +97,4 @@
     </div>
   </div>
 </div>
-
-
-
-<!-- <div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/janeEyre.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/NarrowRoadBetweenDesiresHiRes.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/takeMyHand.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
- <div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div>
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div> 
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div> 
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div> 
-<div class="col-md-3">
-  <div class="book-card">
-    <img src="./../../../assets/images/main-banner1.jpg" alt="Book Cover" class="book-cover">
-    <div class="book-title">Book Name</div>
-    <div class="book-author">Author</div>
-    <div class="book-rating">★★★★☆</div>
-  </div>
-</div> 
-</div> -->
 

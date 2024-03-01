@@ -1,0 +1,86 @@
+<p-button (click)="showDialog()" icon="pi pi-plus-circle"  ></p-button>
+<p-dialog header="add category" [(visible)]="visible" [style]="{width: '50vw'}">
+    <form  #categoryForm (ngSubmit)="addCategory()" novalidate>
+        <div class="row justify-content-center">
+            <div class="col-8 p-2">
+                <label for="categoryName">CategoryName</label>
+                <input pInputText 
+                    id="categoryName" 
+                    name="categoryName" 
+                    [(ngModel)]="categoryFormValues.categoryName"
+                    #categoryName="ngModel"
+                    required
+                    
+                />
+                @if (categoryName.invalid && (categoryName.touched || categoryName.dirty)) {
+                    <div id="category" class="form-text text-danger">
+                        @if(categoryName.errors?.['required']){
+                            <small>This field is required</small>
+                        } 
+                        @if(categoryName.errors?.['pattern']) {
+                            <small>Invalid pattern</small>
+                        } 
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-8 p-2">
+                <p-button type="Submit" label="Submit"></p-button>
+            </div>
+        </div>
+        </form>
+</p-dialog>
+<p-table [value]="categories" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Category</th>
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-category>
+        <tr>
+            <td>1</td>
+            <td>{{ category.categoryName }}</td>
+            <td>
+                <p-button (click)="DeleteCategory(category._id)" icon="pi pi-trash"  ></p-button>
+                    <p-button (click)="showDialog2()" icon="pi pi-pencil"  ></p-button>
+                    <p-dialog header="edit" [(visible)]="visible2" [style]="{width: '50vw'}">
+                        <form  #categoryForm (ngSubmit)="updateCategory(category._id, categoryFormValues.categoryName)" novalidate>
+                            <div class="row justify-content-center">
+                                <div class="col-8 p-2">
+                                    <label for="categoryName">CategoryName</label>
+                                    <input pInputText 
+                                        id="categoryName" 
+                                        name="categoryName" 
+                                        [(ngModel)]="categoryFormValues.categoryName"
+                                        #categoryName="ngModel"
+                                        required
+                                        
+                                        
+                                    />
+                                    @if (categoryName.invalid && (categoryName.touched || categoryName.dirty)) {
+                                        <div id="category" class="form-text text-danger">
+                                            @if(categoryName.errors?.['required']){
+                                                <small>This field is required</small>
+                                            } 
+                                            @if(categoryName.errors?.['pattern']) {
+                                                <small>Invalid pattern</small>
+                                            } 
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-8 p-2">
+                                    <p-button type="Submit" label="Submit"></p-button>
+                                </div>
+                            </div>
+                            </form>
+                    </p-dialog>
+                
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

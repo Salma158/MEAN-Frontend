@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { ReviewsService } from '../../services/reviews.service';
 import { CommonModule } from '@angular/common';
+import { StorageServiceService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-book-details',
@@ -24,23 +25,24 @@ export class BookDetailsComponent {
   selectedOption!: string;
   avgRating!: number;
   rates = [1, 2, 3, 4, 5];
-  bookReviews! : any;
+  bookReviews!: any;
   selectedRating: number = 0;
-  
+  userId!: string;
 
-  constructor(private BooksService: BooksService, private ReviewsService : ReviewsService) {}
+  constructor(
+    private BooksService: BooksService,
+    private ReviewsService: ReviewsService,
+  ) {}
 
   ngOnInit() {
-    this.BooksService.getUserBookById(
-      '65d9abb351fcf55837d66df8',
-      this.id
-    ).subscribe({
+    this.userId = JSON.parse(window.localStorage.getItem('userId') || '');
+    this.BooksService.getUserBookById(this.userId, this.id).subscribe({
       next: (res: any) => {
         if (res && res.data) {
           this.userBookData = res.data.userBook;
           this.selectedOption = this.userBookData.status || 'wish to read';
           this.selectedRating = this.userBookData.rating;
-          console.log(this.selectedRating)
+          console.log(this.selectedRating);
         } else {
           this.selectedOption = 'wish to read';
         }
@@ -61,24 +63,20 @@ export class BookDetailsComponent {
 
     this.ReviewsService.getAvgRating(this.id).subscribe({
       next: (res: any) => {
-        this.avgRating = res.data.avgRating
+        this.avgRating = res.data.avgRating;
       },
       error: (error: any) => {
         console.error('Error in getting average rating functionality:', error);
       },
-    })
-    this.ReviewsService.getReviews(this.id).subscribe(
-      {
-        next: (res: any) => { 
-          this.bookReviews = res.data.bookReviews
-        },
-        error: (error: any) => {
-          console.error('Error fetching the reviews:', error);
-        },
-      }
-      
-    )
-
+    });
+    this.ReviewsService.getReviews(this.id).subscribe({
+      next: (res: any) => {
+        this.bookReviews = res.data.bookReviews;
+      },
+      error: (error: any) => {
+        console.error('Error fetching the reviews:', error);
+      },
+    });
   }
 
   onSelectChange(event: any) {
@@ -92,11 +90,7 @@ export class BookDetailsComponent {
         },
       });
     } else {
-      this.BooksService.addUserBook(
-        '65d9abb351fcf55837d66df8',
-        this.id,
-        event
-      ).subscribe({
+      this.BooksService.addUserBook(this.userId, this.id, event).subscribe({
         next: (addRes: any) => {
           console.log(addRes);
         },
@@ -118,13 +112,13 @@ export class BookDetailsComponent {
     });
   }
 
-
-
-
   rate(rating: number) {
     console.log('Rating:', rating);
-    this.selectedRating = rating; // Update selectedRating
-    this.ReviewsService.postOrEditRating(this.userBookData._id, rating).subscribe({
+    this.selectedRating = rating;
+    this.ReviewsService.postOrEditRating(
+      this.userBookData._id,
+      rating
+    ).subscribe({
       next: (res: any) => {
         console.log(res);
       },
@@ -134,10 +128,8 @@ export class BookDetailsComponent {
     });
   }
 
-
   getStars(avgRating: number): number[] {
     const roundedRating = Math.round(avgRating);
     return Array.from({ length: roundedRating }, () => 1);
   }
-
 }

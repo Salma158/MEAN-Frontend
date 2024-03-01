@@ -9,5 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  ngOnInit(){
+  }
 }
