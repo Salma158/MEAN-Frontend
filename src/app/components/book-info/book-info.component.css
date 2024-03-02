@@ -1,0 +1,28 @@
+.book-info img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.star-container {
+  display: flex;
+}
+
+.star-rating {
+  display: inline block;
+}
+
+.star-rating.rated {
+  color: gold;
+}
+
+
+.fa-icon {
+  cursor: pointer;
+}
+
+.fa-star {
+  color: #ccc;
+}
+

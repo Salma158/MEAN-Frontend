@@ -10,13 +10,13 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { HomeComponent } from './components/home/home.component';
 import { PopularComponent } from './components/popular/popular.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-import { BookReviewComponent } from './components/book-review/book-review.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { LogInComponent } from './components/log-in/log-in.component';
 import { roleGuard } from './guards/role.guard';
 import { authGuard } from './guards/auth.guard';
+import { BookReviewComponent } from './components/book-review/book-review.component';
 
 export const routes: Routes = [
     {
@@ -60,11 +60,6 @@ export const routes: Routes = [
         data: { title: 'User Profile' }
     },
     {
-        path: 'book-details/:bookId/book-review/:id',
-        component: BookReviewComponent,
-        data: { title: 'User Book Review' }
-    },
-    {
         path: 'admin',
         component: AdminLoginComponent
     },
@@ -81,6 +76,11 @@ export const routes: Routes = [
     {
         path: 'log-in',
         component: LogInComponent
+    },
+    {
+        path: 'book-details/:id/book-review/:userId',
+        component: BookReviewComponent,
+        title : "write review"
     },
     {
         path: '**',

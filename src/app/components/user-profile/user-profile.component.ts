@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 })
 export class UserProfileComponent {
   booksData: Array<any> = [];
-  allBooksData: Array<any> = [];
   currentPage = 1;
   limit = 2;
   userId!: string;
@@ -26,15 +25,7 @@ export class UserProfileComponent {
   constructor(private booksService: BooksService, private router: Router) {}
 
   ngOnInit() {
-    this.userId = JSON.parse(window.localStorage.getItem('userId') || '');
-    this.booksService.getAllBooksPaginated(this.currentPage, this.limit).subscribe({
-      next: (res: any) => {
-        this.allBooksData = res.data.books;
-      },
-      error: (error: any) => {
-        console.error('Error getting books', error);
-      },
-    });
+    this.userId = window.localStorage.getItem('userId') || '';
   }
 
   sendUserBook(id: string) {
@@ -45,9 +36,9 @@ export class UserProfileComponent {
     this.booksService.searchBook(this.searched).subscribe({
       next: (res: any) => {
         console.log(res);
+        console.log(this.searched)
         this.searchedbooks = res.data.books;
         this.booksData = [];
-        this.allBooksData = [];
       },
       error: (error: any) => {
         console.error('Error searching book', error);
@@ -65,7 +56,6 @@ export class UserProfileComponent {
           this.totalItems = res.data.total;
           console.log(this.booksData);
           this.searchedbooks = [];
-          this.booksData = [];
         },
         error: (error: any) => {
           console.error('Error fetching books', error);

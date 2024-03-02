@@ -7,131 +7,56 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { ReviewsService } from '../../services/reviews.service';
 import { CommonModule } from '@angular/common';
 import { StorageServiceService } from '../../services/storage-service.service';
+import { BookDescriptionComponent } from '../book-description/book-description.component';
+import { BookInfoComponent } from '../book-info/book-info.component';
+import { UserReviewComponent } from '../user-review/user-review.component';
 
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [FormsModule, RouterLink, FontAwesomeModule, CommonModule],
+  imports: [
+    FormsModule,
+    RouterLink,
+    FontAwesomeModule,
+    CommonModule,
+    BookDescriptionComponent,
+    BookInfoComponent,
+    UserReviewComponent
+  ],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css',
 })
 export class BookDetailsComponent {
-  faStar = faStar;
-
   @Input() id!: string;
-
+  userId!: string;
   bookData: any;
   userBookData!: any;
-  selectedOption!: string;
-  avgRating!: number;
-  rates = [1, 2, 3, 4, 5];
-  bookReviews!: any;
-  selectedRating: number = 0;
-  userId!: string;
-  categoryId!: string;
 
-  constructor(
-    private BooksService: BooksService,
-    private ReviewsService: ReviewsService,
-  ) {}
+  constructor(private booksService: BooksService) {}
 
   ngOnInit() {
-    this.userId = JSON.parse(window.localStorage.getItem('userId') || '');
-    this.BooksService.getUserBookById(this.userId, this.id).subscribe({
+    this.userId = window.localStorage.getItem('userId') || '';
+
+    this.booksService.getUserBookById(this.userId, this.id).subscribe({
       next: (res: any) => {
-        if (res && res.data) {
-          this.userBookData = res.data.userBook;
-          this.selectedOption = this.userBookData.status || 'wish to read';
-          this.selectedRating = this.userBookData.rating;
-          console.log(this.selectedRating);
-        } else {
-          this.selectedOption = 'wish to read';
-        }
+        this.userBookData = res?.data?.userBook;
       },
       error: () => {
-        this.selectedOption = 'wish to read';
+        this.userBookData = null;
+        
       },
     });
 
-    this.BooksService.getBookById(this.id).subscribe({
+    this.booksService.getBookById(this.id).subscribe({
       next: (res: any) => {
-        this.bookData = res.data.book;
-      //  this.categoryId = 
+        this.bookData = res?.data?.book;
+        console.log(this.bookData)
       },
       error: (error: any) => {
         console.error('Error fetching the book:', error);
       },
     });
 
-    this.ReviewsService.getAvgRating(this.id).subscribe({
-      next: (res: any) => {
-        this.avgRating = res.data.avgRating;
-      },
-      error: (error: any) => {
-        console.error('Error in getting average rating functionality:', error);
-      },
-    });
-    this.ReviewsService.getReviews(this.id).subscribe({
-      next: (res: any) => {
-        this.bookReviews = res.data.bookReviews;
-      },
-      error: (error: any) => {
-        console.error('Error fetching the reviews:', error);
-      },
-    });
-  }
-
-  onSelectChange(event: any) {
-    if (this.userBookData) {
-      this.BooksService.editUserBook(this.userBookData._id, event).subscribe({
-        next: (editRes: any) => {
-          console.log(editRes);
-        },
-        error: (editError: any) => {
-          console.error('Error editing the book:', editError);
-        },
-      });
-    } else {
-      this.BooksService.addUserBook(this.userId, this.id, event).subscribe({
-        next: (addRes: any) => {
-          console.log(addRes);
-        },
-        error: (addError: any) => {
-          console.error('Error adding the book:', addError);
-        },
-      });
-    }
-  }
-  removeUserBook() {
-    console.log(this.userBookData._id);
-    this.BooksService.deleteUserBook(this.userBookData._id).subscribe({
-      next: (res: any) => {
-        this.userBookData = undefined;
-      },
-      error: (error: any) => {
-        console.error('Error fetching the book:', error);
-      },
-    });
-  }
-
-  rate(rating: number) {
-    console.log('Rating:', rating);
-    this.selectedRating = rating;
-    this.ReviewsService.postOrEditRating(
-      this.userBookData._id,
-      rating
-    ).subscribe({
-      next: (res: any) => {
-        console.log(res);
-      },
-      error: (error: any) => {
-        console.error('Error in the rating functionality:', error);
-      },
-    });
-  }
-
-  getStars(avgRating: number): number[] {
-    const roundedRating = Math.round(avgRating);
-    return Array.from({ length: roundedRating }, () => 1);
+    
   }
 }

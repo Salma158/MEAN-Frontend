@@ -7,24 +7,25 @@ import { Observable } from 'rxjs';
 })
 export class ReviewsService {
 
+  baseURL = 'https://goodreads-snxv.onrender.com';
   constructor(private http : HttpClient) {}
   
    //works for editing review by id
   addReview(id: string, review: string): Observable<any> {
-    return this.http.patch(`https://goodreads-snxv.onrender.com/userbooks/${id}`, { review })
+    return this.http.patch(`${this.baseURL}/userbooks/${id}`, { review })
   }
 
   getReviews(book : string): Observable<any> {
-    return this.http.get(`https://goodreads-snxv.onrender.com/userbooks/reviews/${book}`)
+    return this.http.get(`${this.baseURL}/userbooks/reviews/${book}`)
   }
 
 
   postOrEditRating(id: string, rating : number): Observable<any> {
-    return this.http.patch(`https://goodreads-snxv.onrender.com/userbooks/${id}`, {rating})
+    return this.http.patch(`${this.baseURL}/userbooks/${id}`, {rating})
   }
 
   getAvgRating(bookId: string): Observable<any> {
-    return this.http.get(`hhttps://goodreads-snxv.onrender.com/books/avgRating/${bookId}`)
+    return this.http.get(`${this.baseURL}/books/avgRating/${bookId}`)
   }
 
 }

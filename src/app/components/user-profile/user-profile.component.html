@@ -6,9 +6,7 @@
         <input type="text" class="form-control" placeholder="Search" [(ngModel)]="searched" />
         <button class="btn btn-success" (click)="searchBook()">Search</button>
       </div>
-      <!-- <div class="sidebar-item">
-        <button class="nav-link" (click)="getUserBooks()">All</button> 
-      </div> -->
+
       <div class="sidebar-item">
         <button class="nav-link" (click)="changeStatus('already read')">
           Already Read
@@ -30,22 +28,6 @@
     </div>
     <div class="col-md-9 books-section">
       <div class="row">
-        @if(allBooksData){
-          @for (book of allBooksData; track $index){
-            <div class="col-md-3">
-               <a (click)="sendUserBook(book?._id)">
-                <div class="book-card">
-                  <img
-                    src="./../../../assets/images/janeEyre.jpg"
-                    alt="Book Cover"
-                    class="book-cover"
-                  />
-                   <div class="book-title">{{ book?.name }}</div>
-                </div>
-              </a> 
-            </div>
-          }
-        }
         @if(searchedbooks){
           @for (search of searchedbooks; track $index){
             <div class="col-md-3">
@@ -71,25 +53,11 @@
                 alt="Book Cover"
                 class="book-cover"
               />
-              <div class="book-title">{{ userbook?.book.name }}</div>
-              <div class="book-author">{{ userbook?.book.auther }}</div>
-              <div class="book-rating">Avg Rating</div>
+              <div class="book-title">{{ userbook?.book?.name }}</div>
             </div>
           </a>
         </div>
         }
-        <!-- <div class="row justify-content-center mt-3">
-          <div class="pagination-buttons">
-            @for (page of totalPages; track $index) {
-            <button
-              (click)="onPageChange(page)"
-              class="btn btn-sm btn-secondary mx-1"
-            >
-              {{ page }}
-            </button>
-            }
-          </div>
-        </div> -->
 
         <mat-paginator [length]="totalItems" [pageSize]="limit" [pageSizeOptions]="[10, 20, 50, 100]" (page)="onPageChange($event.pageIndex + 1)">
         </mat-paginator>

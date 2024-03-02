@@ -2,44 +2,6 @@
     margin-top: 20px;
   }
   
-  .book-info {
-    background-color: #f8f9fa;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .book-info img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
-  }
-  
-  .book-info h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .book-info p {
-    margin-bottom: 5px;
-  }
-  
-
-  
-  .book-info button {
-    width: 100%;
-  }
-
-  .book-info select {
-    margin-bottom: 20px;
-  }
-  
-  .book-info button {
-    margin-top: 20px; 
-    width: 100%;
-  }
-  
 
 
   .user-review {
@@ -70,22 +32,3 @@
     margin-top: 5px;
   }
   
-  .star-container {
-    display: flex;
-  }
-  
-  .star-rating {
-    display : inline block;
-  }
-  
-  .fa-icon {
-    cursor: pointer;
-  }
-  
-  .fa-star {
-    color: #ccc; 
-  }
-
-  .star-rating.rated {
-    color: gold;
-  }

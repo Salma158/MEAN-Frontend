@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ReviewsService } from '../../services/reviews.service';
 import { FormsModule } from '@angular/forms';
 
+
 @Component({
   selector: 'app-book-review',
   standalone: true,
@@ -10,13 +11,12 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './book-review.component.css'
 })
 export class BookReviewComponent {
-  @Input() id!: string;
+  @Input()  id!: string;
   reviewText: string = '';
-  
-  constructor(private ReviewsService : ReviewsService){}
 
+  constructor(private reviewService: ReviewsService){}
   postReview(){
-    this.ReviewsService.addReview(this.id, this.reviewText).subscribe(
+    this.reviewService.addReview(this.id, this.reviewText).subscribe(
       {
         next: (res: any) => {
           console.log("review successfully added");
@@ -27,19 +27,4 @@ export class BookReviewComponent {
       }
     );
   }
-  fetchReviews(){
-    this.ReviewsService.getReviews(this.id).subscribe(
-      {
-        next: (res: any) => {
-          console.log("reviews successfully fetched", res);
-        },
-        error: (error: any) => {
-          console.error('Error fetching the reviews:', error);
-        },
-      }
-    )
-  }
-  
-
- 
 }

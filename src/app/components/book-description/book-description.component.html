@@ -1,0 +1,19 @@
+<div class="book-info h-100">
+  <h2>{{ bookData?.name }}</h2>
+  <p>
+    <strong>Author:</strong> {{ bookData?.author?.firstName }}
+    {{ bookData?.author?.lastName }}
+  </p>
+  <p>
+    <strong>Average Rating:</strong>
+    @for(star of getStars(bookData?.avgRating?.avgRating); track $index){
+    <fa-icon [icon]="faStar" class="star-rating rated" ></fa-icon>
+    }
+    <strong style="margin-left: 20px;">{{bookData?.avgRating?.avgRating}}</strong>
+    <br>
+  </p>
+  <p><strong>Description:</strong> {{ bookData?.description }}</p>
+  <p><strong>Category:</strong> {{ bookData?.category?.categoryName }}</p>
+</div>
+
+

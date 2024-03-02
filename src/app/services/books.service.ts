@@ -9,68 +9,61 @@ import { StorageServiceService } from './storage-service.service';
 export class BooksService {
   token = this.storageService.getUser()?.token;
   role = this.storageService.getUser()?.role;
+  baseURL = 'https://goodreads-snxv.onrender.com';
 
- headers = new HttpHeaders({
-   'Authorization': this.token,
-   'role': this.role
- });
-  constructor(private http :HttpClient , private storageService :StorageServiceService ) { }
+  headers = new HttpHeaders({
+    Authorization: this.token,
+    role: this.role,
+  });
+  constructor(
+    private http: HttpClient,
+    private storageService: StorageServiceService
+  ) {}
 
-  addbBook(formData:any ): Observable<any>{
-    
-    return this.http.post("https://goodreads-snxv.onrender.com/books/",
-        formData
-      ,
-      {headers:this.headers}
-    
-    );
+  addbBook(formData: any): Observable<any> {
+    return this.http.post(`${this.baseURL}/books/`, formData, {
+      headers: this.headers,
+    });
   }
-  deleteBook(id:string ): Observable<any>{
-
-    return this.http.delete(`https://goodreads-snxv.onrender.com/books/${id}`,
-    {headers:this.headers}
-    );
+  deleteBook(id: string): Observable<any> {
+    return this.http.delete(`${this.baseURL}/books/${id}`, {
+      headers: this.headers,
+    });
   }
- updateBook(id:string , formData:any ): Observable<any>{
-    return this.http.patch(`https://goodreads-snxv.onrender.com/books/${id}`,
-    formData,
-    {headers:this.headers}
-    );
+  updateBook(id: string, formData: any): Observable<any> {
+    return this.http.patch(`${this.baseURL}/books/${id}`, formData, {
+      headers: this.headers,
+    });
   }
-  getAllCategories(): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/categories/`
-    );
+  getAllCategories(): Observable<any> {
+    return this.http.get(`${this.baseURL}/categories/`);
   }
-  getAllBooks(): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/books/`
-    );
+  getAllBooks(): Observable<any> {
+    return this.http.get(`${this.baseURL}/books/`);
   }
-  getAllAuthors(): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/authors/`
-    );
+  getAllAuthors(): Observable<any> {
+    return this.http.get(`${this.baseURL}/authors/`);
   }
-  getOne(id:string): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/books/${id}`)
+  getOne(id: string): Observable<any> {
+    return this.http.get(`${this.baseURL}/${id}`);
   }
 
   getAllBooksPaginated(page: number, limit: number): Observable<any> {
     let queryParams = new HttpParams().set('limit', limit).set('page', page);
-    return this.http.get('https://localhost:3000/books', {
+    return this.http.get(`${this.baseURL}/books`, {
       params: queryParams,
     });
   }
 
   searchBook(searchBook: string): Observable<any> {
     let queryParams = new HttpParams().set('searchedBook', searchBook);
-    return this.http.get('https://goodreads-snxv.onrender.com/searchBook', {
+    return this.http.get(`${this.baseURL}/books/searchBook`, {
       params: queryParams,
     });
   }
 
   getPopularBooks(): Observable<any> {
-    return this.http.get(
-      'https://goodreads-snxv.onrender.com/books/popularBooks'
-    );
+    return this.http.get(`${this.baseURL}/books/popularBooks`);
   }
 
   getBooksByStatus(
@@ -84,34 +77,34 @@ export class BooksService {
       .set('status', status)
       .set('limit', limit)
       .set('page', page);
-    return this.http.get('https://goodreads-snxv.onrender.com/userbooks', {
+    return this.http.get(`${this.baseURL}/userbooks`, {
       params: queryParams,
     });
   }
 
   getBookById(id: string): Observable<any> {
-    return this.http.get(`https://goodreads-snxv.onrender.com/books/${id}`);
+    return this.http.get(`${this.baseURL}/books/${id}`);
   }
   editUserBook(id: string, status: string): Observable<any> {
     console.log(id);
     return this.http.patch(
-      `https://goodreads-snxv.onrender.com/userbooks/${id}`,
+      `${this.baseURL}/userbooks/${id}`,
       { status }
     );
   }
   deleteUserBook(id: string) {
     return this.http.delete(
-      `https://goodreads-snxv.onrender.com/userbooks/${id}`
+      `${this.baseURL}/userbooks/${id}`
     );
   }
 
   getUserBookById(user: string, book: string) {
     return this.http.get(
-      `https://goodreads-snxv.onrender.com/userbooks/${user}/${book}`
+      `${this.baseURL}/userbooks/${user}/${book}`
     );
   }
   addUserBook(user: string, book: string, status: string) {
-    return this.http.post(`https://goodreads-snxv.onrender.com/userbooks`, {
+    return this.http.post(`${this.baseURL}/userbooks`, {
       user,
       book,
       status,
@@ -119,11 +112,11 @@ export class BooksService {
   }
 
   getPopularAuthors(): Observable<any> {
-    return this.http.get('https://goodreads-snxv.onrender.com/authors/popular');
+    return this.http.get(`${this.baseURL}/authors/popular`);
   }
   getPopularCategories(): Observable<any> {
     return this.http.get(
-      'https://goodreads-snxv.onrender.com/categories/popular'
+      `${this.baseURL}/categories/popular`
     );
   }
 }

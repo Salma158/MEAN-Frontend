@@ -1,15 +1,14 @@
-
 <div class="container">
     <div class="review-container">
         <h1>Write a Review</h1>
         <form class="review-form">
             <div>
                 <label for="review-textarea">Your Review:</label>
-                <textarea id="review-textarea" rows="5" placeholder="Write your review here..."  [(ngModel)]="reviewText"></textarea>
+                <textarea id="review-textarea" rows="5" placeholder="Write your review here..."  [(ngModel)]="reviewText" name="review"></textarea>
             </div>
             <div>
                 <button type="submit" (click)="postReview()">Post Review</button>
             </div>
         </form>
     </div>
-</div>
+</div> 

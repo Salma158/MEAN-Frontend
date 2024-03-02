@@ -9,51 +9,52 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
+import { UserReviewComponent } from '../user-review/user-review.component';
 @Component({
   selector: 'app-log-in',
   standalone: true,
   imports: [
     FormsModule,
-  CardModule,
-  InputTextModule,
-  PasswordModule,
-  ButtonModule,
-  CommonModule
+    CardModule,
+    InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    CommonModule,
+    UserReviewComponent
   ],
   templateUrl: './log-in.component.html',
-  styleUrl: './log-in.component.css'
+  styleUrl: './log-in.component.css',
 })
 export class LogInComponent {
-  photo! : String
+  photo!: String;
 
-  isValid:boolean=true
-  constructor( private authService:AuthService , 
-    private storageService:StorageServiceService ,
+  isValid: boolean = true;
+  constructor(
+    private authService: AuthService,
+    private storageService: StorageServiceService,
     private router: Router
-    ){}
-    logInFormValues = {
-      userName:'',
-      password:''
-    }
+  ) {}
+  logInFormValues = {
+    userName: '',
+    password: '',
+  };
   errorMessage = '';
   role: string = '';
 
   logIn(): void {
     const { userName, password } = this.logInFormValues;
     this.authService.logIn(userName, password).subscribe({
-      next: data => { 
-        const payload:any=jwtDecode(data)
-        this.role=payload.role;
+      next: (data) => {
+        const payload: any = jwtDecode(data);
+        this.role = payload.role;
         const userId = payload.id;
         this.storageService.saveUser(data, payload.role, userId);
-        this.router.navigate(['/'])
-
+        this.router.navigate(['/']);
       },
-      error: err => {
-        this.isValid=false
+      error: (err) => {
+        this.isValid = false;
         this.errorMessage = err.error.error;
-        
-      }
+      },
     });
   }
 }

@@ -1,0 +1,51 @@
+<!-- book-info.component.html -->
+<div class="book-info d-flex flex-column h-100">
+  <img src="./../../../assets/titanic.jpg" alt="Book Title" class="img-fluid" />
+  @if( userBookData?.status){
+  <p>
+    <strong>Status:</strong> <span>{{ selectedOption }}</span>
+  </p>
+  }
+  <strong>edit status :</strong>
+  <select
+    [(ngModel)]="selectedOption"
+    (ngModelChange)="onSelectChange($event)"
+    class="form-control"
+  >
+    <option
+      [value]="'already read'"
+      [selected]="selectedOption === 'already read'"
+    >
+      Already Read
+    </option>
+    <option
+      [value]="'currently reading'"
+      [selected]="selectedOption === 'currently reading'"
+    >
+      Currently Reading
+    </option>
+    <option
+      [value]="'wish to read'"
+      [selected]="selectedOption === 'wish to read'"
+    >
+      Wish to Read
+    </option>
+  </select>
+
+  <strong>rate the book :</strong>
+
+  <div class="star-container">
+    @for(star of rates; track $index){
+      <div>
+        <fa-icon
+          [icon]="faStar"
+          (click)="rate($index + 1)"
+          class="star-rating"
+          [ngClass]="{ rated: $index < selectedRating }"
+        ></fa-icon>
+      </div>
+      }
+  </div>
+
+  <strong>Category :</strong> <a></a>
+</div>

@@ -7,11 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class BooksRequestsService {
 
+  baseURL = 'http://localhost:3000';
+
   constructor(private http: HttpClient) {}
 
   getAllBooks(currentPage: number, limit: number): Observable <any>{
     let queryParams = new HttpParams().set('limit', limit).set('page', currentPage)
-    return this.http.get("https://goodreads-snxv.onrender.com/books", { params: queryParams });
+    return this.http.get(`${this.baseURL}/books`, { params: queryParams });
   }
   
   

@@ -1,0 +1,29 @@
+ <div class="user-review">
+  @if(userBookData?._id){ 
+  @if(userBookData?.review){
+  <p class="review-title">Your Review</p>
+  <p>{{ userBookData.review }}</p>
+  <button
+    [routerLink]="['book-review', userBookData?._id]"
+    class="btn btn-danger"
+  >
+    edit your review
+  </button>
+  } @else{
+  <button
+    [routerLink]="['book-review', userBookData?._id]"
+    class="btn btn-danger"
+  >
+    write a review
+  </button>
+  } }
+</div>
+<div class="reviews-container">
+  <p class="review-title">Reviews</p>
+  @for(review of usersReviews; track $index){
+  <div class="review">
+    <p class="reviewer-name">{{ review?.user?.firstName }}</p>
+    <p class="review-content">{{ review?.review }}</p>
+  </div>
+  }
+</div>
