@@ -34,7 +34,7 @@ export class AuthorsService {
   }
  updateAuthors(id:string , data:any ): Observable<any>{
     return this.http.patch(`${this.baseURL}/authors/${id}`,
-    {data},
+    data,
     {headers:this.headers}
     );
   }
