@@ -5,7 +5,7 @@
       <div class="col-md-3 mb-4">
         <a [routerLink]="['book-details', book._id]" style="text-decoration: none;">
           <div class="card">
-            <img [src]="'http://localhost:3000/images/profile/'+book.image" alt="book Photo" class="card-img-top">
+            <img [src]="'https://goodreads-snxv.onrender.com/images/profile/'+book.image" alt="book Photo" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title">{{ book?.name }}</h5>
               <p class="card-text">{{ book?.author.firstName }} {{ book?.author.lastName }}</p>

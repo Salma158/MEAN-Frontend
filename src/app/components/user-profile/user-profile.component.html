@@ -34,7 +34,7 @@
                <a (click)="sendUserBook(search?._id)">
                 <div class="book-card">
                   <img
-                    src="./../../../assets/images/janeEyre.jpg"
+                    [src]="'https://goodreads-snxv.onrender.com/images/profile/'+search.image"
                     alt="Book Cover"
                     class="book-cover"
                   />
