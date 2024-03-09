@@ -7,6 +7,7 @@
     <a (click)="sendAuthor(author?._id)">
       <div class="card h-100">
         <div class="card-body">
+          <img [src]="'http://localhost:3000/images/authors/'+author?.photo" alt="author Photo" >
           <h5 class="card-title">
             {{ author.firstName }} {{ author.lastName }}
           </h5>

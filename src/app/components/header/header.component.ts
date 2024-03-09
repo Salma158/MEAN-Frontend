@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { StorageServiceService } from '../../services/storage-service.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +8,24 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
-})
-export class HeaderComponent {
+  })
+  export class HeaderComponent {
+    loggedIn !: boolean;
+
+    constructor(private storageService : StorageServiceService, private router : Router) {}
+  
+    ngOnInit(){
+      if(localStorage.getItem('userToken')){
+        this.loggedIn = true;
+      } else{
+        this.loggedIn = false;
+      }
+    }
+
+    logOut(){
+      this.storageService.clean()
+      this.router.navigate([''])
+    }
+
 
 }

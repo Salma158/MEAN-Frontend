@@ -26,13 +26,13 @@ export class AllAuthorsComponent {
   onPageChange(page: number) {
     this.currentPage = page;
     this.getAuthors();
-    console.log(this.currentPage)
   }
-getAuthors(){
+  getAuthors(){
   this.authorsRequests.getAllAuthors(this.currentPage, this.limit).subscribe(
     (res) =>{ 
-    this.authors = res.data.authors
-    this.totalItems = res.data.total
+    this.authors = res.data
+    this.totalItems = res.length
+    console.log(this.authors)
   }
   );
 }

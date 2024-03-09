@@ -7,13 +7,15 @@ import { Observable } from 'rxjs';
 })
 export class CategoriesRequestsService {
 
+  baseURL = 'https://goodreads-snxv.onrender.com';
+
   constructor(private http: HttpClient) {}
 
     getAllCategories(): Observable <any>{
-      return this.http.get('https://goodreads-snxv.onrender.com/categories');
+      return this.http.get(`${this.baseURL}/categories`);
     }
     getCategoryDetails(id: string, currentPage: number, limit: number): Observable<any>{
       let queryParams = new HttpParams().set('limitSize', limit).set('pageNumber', currentPage)
-      return this.http.get(`https://goodreads-snxv.onrender.com/categories/${id}`, { params: queryParams });
+      return this.http.get(`${this.baseURL}/categories/${id}`, { params: queryParams });
     }
 }

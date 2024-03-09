@@ -45,6 +45,7 @@ export class AdminLoginComponent {
         const userId = payload.id;
         this.storageService.saveUser(data, payload.role, userId);
         this.router.navigate(['/dashboard'])
+        console.log("hiiii")
 
       },
       error: err => {

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class BooksRequestsService {
 
-  baseURL = 'http://localhost:3000';
+  baseURL = 'https://goodreads-snxv.onrender.com';
 
   constructor(private http: HttpClient) {}
 

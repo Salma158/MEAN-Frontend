@@ -40,7 +40,7 @@ export const routes: Routes = [
         data: { title: 'Author Details' }
     },
     {
-        path: 'categories/:id',
+        path: 'book-details/:id/categories/:id',
         component: CategoryBooksComponent,
         data: { title: 'Category Details' }
     },

@@ -7,6 +7,7 @@ import { StorageServiceService } from './storage-service.service';
   providedIn: 'root'
 })
 export class CategoryService {
+    baseURL = 'https://goodreads-snxv.onrender.com';
     token = this.storageService.getUser()?.token;
      role = this.storageService.getUser()?.role;
 
@@ -17,7 +18,7 @@ export class CategoryService {
   constructor(private http :HttpClient , private storageService :StorageServiceService ) { }
   addCategory(categoryName:string ): Observable<any>{
     
-    return this.http.post("https://goodreads-snxv.onrender.com/categories/",
+    return this.http.post(`${this.baseURL}/categories/`,
       {
         categoryName
       },
@@ -27,22 +28,22 @@ export class CategoryService {
   }
   deleteCategory(id:string ): Observable<any>{
 
-    return this.http.delete(`https://goodreads-snxv.onrender.com/categories/${id}`,
+    return this.http.delete(`${this.baseURL}/categories/${id}`,
     {headers:this.headers}
     );
   }
  updateCategory(id:string , categoryName:string ): Observable<any>{
-    return this.http.patch(`https://goodreads-snxv.onrender.com/categories/${id}`,
+    return this.http.patch(`${this.baseURL}/categories/${id}`,
     {categoryName},
     {headers:this.headers}
     );
   }
   getAll(): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/categories/`
+    return this.http.get(`${this.baseURL}/categories/`
     );
   }
   getOne(id:string): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/categories/${id}`)
+    return this.http.get(`${this.baseURL}/categories/${id}`)
   }
     
 }

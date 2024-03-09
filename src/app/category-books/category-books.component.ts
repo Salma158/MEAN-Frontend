@@ -16,7 +16,6 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 
 export class CategoryBooksComponent {
   books !: Array<Book>;
-  categories !: Array<Category>
   currentPage = 1;
   limit = 2;
   totalItems = 0;
@@ -34,8 +33,8 @@ export class CategoryBooksComponent {
     this.categoriesRequests.getCategoryDetails(id, this.currentPage, this.limit).subscribe(
       (res) =>{ 
         console.log(res)
-        this.books = res.data.books
-        this.totalItems = res.data.total
+        this.books = res?.data
+        this.totalItems = res?.total
     }
     );
   }

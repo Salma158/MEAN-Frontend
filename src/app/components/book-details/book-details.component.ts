@@ -21,7 +21,7 @@ import { UserReviewComponent } from '../user-review/user-review.component';
     CommonModule,
     BookDescriptionComponent,
     BookInfoComponent,
-    UserReviewComponent
+    UserReviewComponent,
   ],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.css',
@@ -35,28 +35,30 @@ export class BookDetailsComponent {
   constructor(private booksService: BooksService) {}
 
   ngOnInit() {
-    this.userId = window.localStorage.getItem('userId') || '';
+    const userId = localStorage.getItem('userId');
+    if (userId !== null) {
+      this.userId = JSON.parse(userId);
+    } else {
+      console.log('id is not found');
+    }
 
     this.booksService.getUserBookById(this.userId, this.id).subscribe({
       next: (res: any) => {
         this.userBookData = res?.data?.userBook;
+        console.log(this.userBookData);
       },
       error: () => {
         this.userBookData = null;
-        
       },
     });
 
     this.booksService.getBookById(this.id).subscribe({
       next: (res: any) => {
         this.bookData = res?.data?.book;
-        console.log(this.bookData)
       },
       error: (error: any) => {
         console.error('Error fetching the book:', error);
       },
     });
-
-    
   }
 }

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row align-items-stretch">
     <div class="col-md-4">
-      <app-book-info [userBookData]="userBookData"></app-book-info>
+      <app-book-info [userBookData]="userBookData" [category]="bookData?.category" [bookId]="id"></app-book-info>
     </div>
     <div class="col-md-7">
       <app-book-description [bookData]="bookData"></app-book-description>

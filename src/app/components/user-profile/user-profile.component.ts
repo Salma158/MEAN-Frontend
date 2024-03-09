@@ -25,7 +25,12 @@ export class UserProfileComponent {
   constructor(private booksService: BooksService, private router: Router) {}
 
   ngOnInit() {
-    this.userId = window.localStorage.getItem('userId') || '';
+    const userId = localStorage.getItem('userId');
+    if (userId !== null) {
+      this.userId = JSON.parse(userId);
+    } else {
+      console.log('id is not found');
+    }
   }
 
   sendUserBook(id: string) {

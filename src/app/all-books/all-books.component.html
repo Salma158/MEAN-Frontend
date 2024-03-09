@@ -6,6 +6,7 @@
         <a (click)="sendBook(book?._id)">
         <div class="card h-100">
           <div class="card-body">
+            <img [src]="'http://localhost:3000/images/profile/'+book.image" alt="book Photo" style="height:500px;">
             <h5 class="card-title"><a href="#">{{book.name}}</a></h5>
             <h5 class="card-title"><a href="#">{{ book.author.firstName }} {{ book.author.lastName }}</a></h5>
           </div>

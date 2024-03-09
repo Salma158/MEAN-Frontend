@@ -7,17 +7,19 @@ import { StorageServiceService } from './storage-service.service';
   providedIn: 'root'
 })
 export class AuthorsService {
+
+  baseURL = 'https://goodreads-snxv.onrender.com';
   
   token = this.storageService.getUser()?.token;
   role = this.storageService.getUser()?.role;
- headers = new HttpHeaders({
+  headers = new HttpHeaders({
    'Authorization': this.token,
    'role': this.role
  });
   constructor(private http :HttpClient , private storageService :StorageServiceService ) { }
   addbAuthors(formData:any ): Observable<any>{
     
-    return this.http.post("https://goodreads-snxv.onrender.com/authors/",
+    return this.http.post(`${this.baseURL}/authors/`,
        formData
       ,
       {headers:this.headers}
@@ -26,22 +28,22 @@ export class AuthorsService {
   }
   deleteAuthors(id:string ): Observable<any>{
 
-    return this.http.delete(`https://goodreads-snxv.onrender.com/authors/${id}`,
+    return this.http.delete(`${this.baseURL}/authors/${id}`,
     {headers:this.headers}
     );
   }
  updateAuthors(id:string , data:any ): Observable<any>{
-    return this.http.patch(`https://goodreads-snxv.onrender.com/authors/${id}`,
+    return this.http.patch(`${this.baseURL}/authors/${id}`,
     {data},
     {headers:this.headers}
     );
   }
 
   getAllAuthors(): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/authors/`
+    return this.http.get(`${this.baseURL}/authors/`
     );
   }
   getOne(id:string): Observable<any>{
-    return this.http.get(`https://goodreads-snxv.onrender.com/authors/${id}`)
+    return this.http.get(`${this.baseURL}/authors/${id}`)
   }
 }

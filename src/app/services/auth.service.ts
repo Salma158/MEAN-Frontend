@@ -6,12 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+
+   baseURL = 'https://goodreads-snxv.onrender.com';
  
   constructor(private http: HttpClient) { }
 
   logIn(userName: string, password: string): Observable<any> {
     
-    return this.http.post("https://goodreads-snxv.onrender.com/user/login", {
+    return this.http.post(`${this.baseURL}/user/login`, {
       userName,
       password
     });
@@ -20,7 +22,7 @@ export class AuthService {
   signUp(formData: any): Observable<any> {
     const headers = new HttpHeaders();
     
-    return this.http.post("https://goodreads-snxv.onrender.com/user/", formData, { headers });
+    return this.http.post(`${this.baseURL}/user/`, formData, { headers });
   }
 
 }

@@ -1,11 +1,14 @@
-<!-- book-info.component.html -->
 <div class="book-info d-flex flex-column h-100">
-  <img src="./../../../assets/titanic.jpg" alt="Book Title" class="img-fluid" />
-  @if( userBookData?.status){
+  <img
+    [src]="'http://localhost:3000/images/profile/' + bookData?.image"
+    alt="book Photo"
+    class="img-fluid"
+  />
+  @if(userBookData){
   <p>
     <strong>Status:</strong> <span>{{ selectedOption }}</span>
   </p>
-  }
+  
   <strong>edit status :</strong>
   <select
     [(ngModel)]="selectedOption"
@@ -36,16 +39,28 @@
 
   <div class="star-container">
     @for(star of rates; track $index){
-      <div>
-        <fa-icon
-          [icon]="faStar"
-          (click)="rate($index + 1)"
-          class="star-rating"
-          [ngClass]="{ rated: $index < selectedRating }"
-        ></fa-icon>
-      </div>
-      }
+    <div>
+      <fa-icon
+        [icon]="faStar"
+        (click)="rate($index + 1)"
+        class="star-rating"
+        [ngClass]="{ rated: $index < selectedRating }"
+      ></fa-icon>
+    </div>
+    }
   </div>
 
-  <strong>Category :</strong> <a></a>
+  <button class="btn btn-danger" (click)="removeUserBook()">remove from your books</button>
+}
+
+
+
+  @if(!userBookData){
+    <button (click)="addtoUserBooks()" class="btn btn-danger">add to your books</button>
+  }
+
+  <strong>Category :</strong>
+  <a [routerLink]="['categories', category?._id]">{{
+    category?.categoryName
+  }}</a>
 </div>

@@ -41,7 +41,7 @@ export class BooksComponent {
 
   getAll(){
     this.booksService.getAllBooks().subscribe((data)=>{
-      this.books=data.books;
+      this.books=data.data.books;
       console.log(this.books)
     })
   }

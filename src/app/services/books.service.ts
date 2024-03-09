@@ -99,15 +99,15 @@ export class BooksService {
   }
 
   getUserBookById(user: string, book: string) {
+    console.log("salma")
     return this.http.get(
       `${this.baseURL}/userbooks/${user}/${book}`
     );
   }
-  addUserBook(user: string, book: string, status: string) {
+  addUserBook(user: string, book: string) {
     return this.http.post(`${this.baseURL}/userbooks`, {
       user,
-      book,
-      status,
+      book
     });
   }
 
